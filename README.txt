@@ -40,12 +40,13 @@ Process
 I went through methods BAD, GOOD, BETTER, BEST, comparing time results for efficiency.
 
 BAD
- - any recursive solution, because the complexity and risk is not worth the efficiency, which isn't that great anyhow.
+ - recursive solutions; their complexity and risk is not worth the efficiency, which isn't that great anyhow.
 
 GOOD
  - fib_closed()
  - close-form expression, pure mathematic approach with matrix-based formula, and no memory caching.
- - Not going to re-invent the wheel; I leveraged the formula from here and ported to bash: https://fabiandablander.com/r/Fibonacci.html
+ - Not going to re-invent the wheel; I leveraged the formula from here and ported to bash: 
+       https://fabiandablander.com/r/Fibonacci.html
  - CON: Does NOT work past the 78th fib number.
 
 BETTER
@@ -53,12 +54,14 @@ BETTER
  - classic approach, storing the sequence known so-far in an array, and only re-calculating if not already known.
  - when running 1000 times with random requested indices, this method is 72X faster than the GOOD method.
  - Limit: on 64-bit OSs, the maximum integer value is (263 - 1), 9,223,372,036,854,775,807
-                                                                12,200,159,415,121,876,738  <-- 93rd fibonacci number (not supported)
-                                                                 7,540,113,804,746,346,429  <-- 92nd fibonacci number 
-                                                                 4,660,046,610,375,530,309  <-- 91st fibonacci number
+
+                                         93rd fibonacci number  12,200,159,415,121,876,738 (not supported)
+                                         92nd fibonacci number   7,540,113,804,746,346,429
+                                         91st fibonacci number   4,660,046,610,375,530,309
 BEST
- - If we know the range of desired indices (for ex., if we know we'll never be asked for n above 100), just pre-calculate them all and store.
- - To do this, just pre-run fib_classic once with the max index. All values will be at the ready for subsequent calls.
+ - If we know the range of desired indices (for ex., if we know we'll never be asked for n above 100), just
+   pre-calculate them all and store.
+ - Just pre-run fib_classic once with the max index. All values will be at the ready for subsequent calls.
  - Leverage Python - has better/faster number handling beyond 64-bit limitation.
 
 API Improvement
@@ -74,14 +77,14 @@ Containerization
 
 CI/CD with Github Actions:
  - Create a .github/workflows/pull-pipe.yml to run:
-   - lint, regression test, build docker image, upload to container registry (ECR)
+     lint, regression test, build docker image, upload to container registry (ECR)
  - Create a .github/workflows/push-pipe.yml to run:
-   - git tag, deploy to target host(s) and start.
+     git tag, deploy to target host(s) and start.
 
 Any monitoring/logging strategies you might apply:
- - Logs:    include a logging service to send logs to Datadog. That way, if we scale out, all logging will be centralized.
+ - Logs:    include a logging service to feed Datadog. Then, if scaling out, all logging will be centralized.
  - Metrics: include a metrics service to gather cpu, memory, network usage, and feed Datadog.
- - Alerts:  create monitors to alert on usage above capacity thresholds. Send alerts to PagerDuty (expensive), or Ops Genie.
+ - Alerts:  create monitors to alert on usage above capacity thresholds. Send to PagerDuty (expensive), or Ops Genie.
  - Alerts:  create monitors for synthetic tests as well. Send alerts to PagerDuty (expensive), or Ops Genie.
 
 How you would scale the service to handle a high number of requests:
