@@ -1,4 +1,4 @@
-Fibonacci Webserver and Standalone too
+Fibonacci Webserver and Standalone Utility
 
 Research
 ========
@@ -22,7 +22,7 @@ How to Test Webserver
 To acquire the 24th fibonacci number, for example:
   Visit http://127.0.0.1:3000/get?n=24
     OR
-   curl http://127.0.0.1:3000/get?n=24
+  curl http://127.0.0.1:3000/get?n=24
 
 How to Run Stand-alone Fibonacci Utility
 ========================================
@@ -40,7 +40,7 @@ Process
 I went through methods BAD, GOOD, BETTER, BEST, comparing time results for efficiency.
 
 BAD
- - recursive solutions; their complexity and risk is not worth the efficiency, which isn't that great anyhow.
+ - any recursive solution; their complexity, risk, and inefficiency are not worth any coding elegance.
 
 GOOD
  - fib_closed()
@@ -66,14 +66,16 @@ BEST
 
 API Improvement
 ===============
-Consider an endpoint option to support a list of fibonacci indices in the request, to reduce chattiness. The bulk of the request time will be in the request/response traffic, NOT in the actually calculation.
+Consider an endpoint option to support a list of fibonacci indices in the request, to reduce chattiness. 
+The bulk of the request time will be in the request/response traffic, NOT in the actually calculation.
 
 Operational Considerations
 ==========================
 For production-level operation consider all the following:
 
 Containerization
- - Dockefile with ubuntu, and include layers to install monitoring agents (see section below), copy fibonacci repo files, and launch, exposing port.
+ - Dockefile with ubuntu, and include layers to install monitoring agents (see section below), copy fibonacci 
+   repo files, and launch, exposing port.
 
 CI/CD with Github Actions:
  - Create a .github/workflows/pull-pipe.yml to run:
@@ -84,8 +86,8 @@ CI/CD with Github Actions:
 Any monitoring/logging strategies you might apply:
  - Logs:    include a logging service to feed Datadog. Then, if scaling out, all logging will be centralized.
  - Metrics: include a metrics service to gather cpu, memory, network usage, and feed Datadog.
- - Alerts:  create monitors to alert on usage above capacity thresholds. Send to PagerDuty (expensive), or Ops Genie.
- - Alerts:  create monitors for synthetic tests as well. Send alerts to PagerDuty (expensive), or Ops Genie.
+ - Alerts:  create monitors to alert usage above capacity thresholds. Send to PagerDuty (expensive), or OpsGenie.
+ - Alerts:  create monitors for synthetic tests as well. Send alerts to PagerDuty (expensive), or OpsGenie.
 
 How you would scale the service to handle a high number of requests:
  - Consider running multiple instances of the service, fed through a load balancer, spread across 2 availability zones for redundancy.
