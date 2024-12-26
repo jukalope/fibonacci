@@ -14,6 +14,7 @@ bash was very quick to prototype and prove memoization, but has its limitations.
 
 How to Run Webserver
 ====================
+NOTE: MacOS + Linux. Not supported for Windows without installing MSYS, bc, nc, ...
 Start the webserver.sh script in a terminal session, on an OS that has bash installed
   ./webserver.sh
 
